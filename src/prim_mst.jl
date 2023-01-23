@@ -1,4 +1,4 @@
-function prim_mst_algo(g, initial_vertex)
+function sgt_prim_mst(g, initial_vertex)
     #=
     There is still something wrong
     =#
@@ -19,18 +19,18 @@ function prim_mst_algo(g, initial_vertex)
         push!(in_mst, seen[end], min_weight);
         push!(seen, min_weight);
     end
-    return mst, sum(weights(mst)) / 2
+    return sum(weights(mst)) / 2, mst
 end
 
-function prim_wrapper(g)
-    mst = nothing;
-    cost = nothing;
+function sgt_prim_wrapper(g)
+    msts = [];
     for i = collect(vertices(g))
         try    
-            mst, cost = prim_mst_algo(g, label_for(g, i));
+            push!(msts, sgt_prim_mst(g, label_for(g, i)));
         catch
             nothing;
         end
     end
-    return mst, cost
+    best = findmin(first, msts);
+    return msts, best
 end

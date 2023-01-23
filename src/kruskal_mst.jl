@@ -1,4 +1,4 @@
-function kruskal_mst(g)
+function sgt_kruskal_mst(g)
     wm = sort([(g[label_for(g, e.src), label_for(g, e.dst)], e.src, e.dst) for e in edges(g)]);
     mst = MetaGraph(Graph(), EdgeData=Int, graph_data="MST", weight_function=identity, default_weight=0);
     for v in vertices(g)
